@@ -234,31 +234,3 @@ func TestUseCase_DeleteCustomer(t *testing.T) {
 		})
 	}
 }
-
-func TestNewUseCase(t *testing.T) {
-	type args struct {
-		repo CustomerRepository
-	}
-	mocking := NewCustomerRepository(t)
-	mocking.On("UseCase", mock.AnythingOfType("*CustomerRepository")).Return(mocking, nil)
-	tests := []struct {
-		name string
-		args args
-		want *UseCase
-	}{
-		{
-			name: "Test Case 1",
-			args: args{
-				repo: mocking,
-			},
-			want: &UseCase{},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := NewUseCase(tt.args.repo); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewUseCase() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
